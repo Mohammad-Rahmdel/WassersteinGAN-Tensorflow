@@ -82,9 +82,10 @@ In Critic's last dense layer there is no activation function(sigmoid). Therefore
 
 
 
-
 <p align="center">
     Generator's outputs after 8000 epochs (Trained on 6 digit samples)
+</p>
+<p align="center">
     <img src='results/6/generated_plot_8000.png' \>
 </p>
 
