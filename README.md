@@ -2,7 +2,7 @@
 
 ## Tensorflow Implementation using MNIST
 
-You can find the tensorflow implementation of WassersteinGan paper [here](https://github.com/Mohammad-Rahmdel/WassersteinGAN-Tensorflow-/blob/master/WGAN.ipynb)
+You can find the Tensorflow implementation of WassersteinGan paper in [WGAN.ipynb](https://github.com/Mohammad-Rahmdel/WassersteinGAN-Tensorflow-/blob/master/WGAN.ipynb).
 
 ### Networks:
 
@@ -32,9 +32,7 @@ You can find the tensorflow implementation of WassersteinGan paper [here](https:
 	model.add(Dense(1)) 
 ```
 
-In Critic's last dense layer there is no activation function(sigmoid). Therefore, its output value is not limited unlike discriminator which its output represents the input's probability being fake or real. That's why the author called this network *critic* instead of discriminator!
-
-
+In Critic's last dense layer there is no activation function(sigmoid). Therefore, its output value is not limited unlike discriminator which predicts the probability of its inputs as being fake or real. That's why the author called this network *critic* instead of discriminator!
 
 ## Results
 
@@ -60,66 +58,50 @@ In Critic's last dense layer there is no activation function(sigmoid). Therefore
 
 
 
-
+<p align="center">
+    Generated samples during training (Trained on 3 digit samples)
+</p>
 <table align='center'>
 <tr align='center'>
 <td> epoch 100  </td>
 <td> epoch 1500  </td>
+</tr>	
+<tr align='center'>
+<td> <img src = 'results/3/generated_plot_0100.png'>
+<td> <img src = 'results/3/generated_plot_1400.png'>
+</tr>
+<tr align='center'>	
 <td> epoch 3500  </td>
 <td> Loss </td>
 </tr>
 <tr align='center'>
-<td> <img src = 'results/3/generated_plot_0100.png'>
-<td> <img src = 'results/3/generated_plot_1400.png'>
 <td> <img src = 'results/3/generated_plot_3400.png'>
 <td> <img src = 'results/3/plot_line_plot_loss.png'>
 </tr>
 </table>
 
 
-<table align='center'>
-<tr align='center'>
-<td> epoch 300  </td>
-<td> epoch 700  </td>
-<td> epoch 8000  </td>
-<td> Loss </td>
-</tr>
-<tr align='center'>
-<td> <img src = 'results/6/generated_plot_0300.png'>
-<td> <img src = 'results/6/generated_plot_0700.png'>
-<td> <img src = 'results/6/generated_plot_8000.png'>
-<td> <img src = 'results/6/plot_line_plot_loss.png'>
-</tr>
-</table>
 
 
+<p align="center">
+    Generator's outputs after 8000 epochs (Trained on 6 digit samples)
+    <img src='results/6/generated_plot_8000.png' \>
+</p>
 
-<table align='center'>
-<tr align='center'>
-<td> epoch 1000  </td>
-<td> epoch 5000  </td>
-<td> epoch 9000  </td>
-<td> Loss </td>
-</tr>
-<tr align='center'>
-<td> <img src = 'results/mnist_v2/generated_plot_1000.png'>
-<td> <img src = 'results/mnist_v2/generated_plot_5200.png'>
-<td> <img src = 'results/mnist_v2/generated_plot_9200.png'>
-<td> <img src = 'results/mnist_v2/plot_line_plot_loss.png'>
-</tr>
-</table>
+You can find more generated samples [here](https://github.com/Mohammad-Rahmdel/WassersteinGAN-Tensorflow-/blob/master/results).
+
 
 
 
 # Wasserstein
 
-In statistics, the **earth mover's distance (EMD)** is a measure of the distance between two probability distributions over a region D. In mathematics, this is known as the Wasserstein metric. Informally, if the distributions are interpreted as two different ways of piling up a certain amount of dirt over the region D, the EMD is the minimum cost of turning one pile into the other; where the cost is assumed to be amount of dirt moved times the distance by which it is moved. Calculating the EMD is in itself an optimization problem. There are infinitely many ways to move the earth around, and we need to find the optimal one.
+In statistics, the **earth mover's distance (EMD)** is a measure of the distance between two probability distributions over a region D. Informally, if the distributions are interpreted as two different ways of piling up a certain amount of dirt over the region D, the EMD is the minimum cost of turning one pile into the other; where the cost is assumed to be the amount of dirt moved times the distance by which it is moved. Calculating the EMD is in itself an optimization problem. There are infinitely many ways to move the earth around, and we need to find the optimal one.
 
 The EMD is widely used in content-based image retrieval to compute distances between the color histograms of two digital images. In this case, the region is the RGB color cube, and each image pixel is a parcel of "dirt". The same technique can be used for any other quantitative pixel attribute, such as luminance, gradient, apparent motion in a video frame, etc.. <br>
-In computer science, this metric is widely used to compare discrete distributions, e.g. the color histograms of two digital images. [Here](https://github.com/Mohammad-Rahmdel/WassersteinGAN-Tensorflow-/blob/master/Earth%20Mover's%20Distance.ipynb) you can find some examples of EMD that helps for better understanding.
+In computer science, this metric is widely used to compare discrete distributions, e.g. the color histograms of two digital images. [Here](https://github.com/Mohammad-Rahmdel/WassersteinGAN-Tensorflow-/blob/master/Earth%20Mover's%20Distance.ipynb) are some examples of EMD that help for better understanding.
 
 
-In mathematics, the **Wasserstein** or Kantorovich–Rubinstein metric or distance is a distance function defined between probability distributions on a given metric space M. 
+In mathematics, EMD is known as **Wasserstein** metric. The **Wasserstein** or Kantorovich–Rubinstein metric or distance is a distance function defined between probability distributions on a given metric space M. 
 
 
 The <img src='./readme_images/pth.png' /> Wasserstein distance between two probability measures μ and ν in <img src='./readme_images/ppm.png' /> is defined as: <br>
@@ -131,23 +113,20 @@ The Wasserstein metric may be equivalently defined by:
 where E[Z] denotes the expected value of a random variable Z and the infimum is taken over all joint distributions of the random variables X and Y with marginals μ and ν respectively and d is a metric. 
 
 
-For p=1, it is proven that the Wasserstein-1 metric in 1-D (dimension one), between two cumulative distribution functions(CDF) F1 and F2 on R can be written as the L1 distance: <br>
+For p=1, it is proven that the Wasserstein-1 metric in 1D (dimension one), between two cumulative distribution functions(CDF) F1 and F2 on R can be written as the L1 distance: <br>
 <img src='./readme_images/eqn12.png' /> <br>
 
 
 
-
-
-
-In Wasserstein GAN paper, Arjovsky et al use the Wasserstein-1 metric as a way to improve the original framework of Generative Adversarial Networks (GAN), to alleviate the vanishing gradient and the mode collapse issues. 
+In Wasserstein GAN paper, Arjovsky et al use the **Wasserstein-1** metric as a way to improve the original framework of Generative Adversarial Networks (GAN), to alleviate the vanishing gradient and the mode collapse issues. 
 
 
 
 ## WGAN (Wasserstein Generative Adversarial Networks)
-Training GAN is hard. Models may never converge and mode collapses are common.
-
 
 ### Introduction
+Training GAN is hard. Models may never converge and mode collapses are common. <br>
+
 When learning generative models, we assume the data we have comes from some unknown distribution <img src='./readme_images/pr.png' />. (The r stands for real) We want to learn a distribution <img src='./readme_images/ptheta.png' />​​ that approximates <img src='./readme_images/pr.png' />, where θ are the parameters of the distribution. <br>
 You can imagine two approaches for doing this. <br>
 - Directly learn the probability density function <img src='./readme_images/ptheta.png' />​​. We optimize <img src='./readme_images/ptheta.png' />​​ through maximum likelihood estimation.
@@ -161,6 +140,7 @@ In the limit, this is equivalent to minimizing the KL-divergence. <br>
 <img src='./readme_images/eqn14.png' />​​ <br>
 <img src='./readme_images/eqn15.png' />​​ <br>
 
+Variational Auto-Encoders (VAEs) and Generative Adversarial Networks (GANs) are well known examples of this approach.
 
 ### Different Distances
 <img src='./readme_images/eqn16.png' />​​ <br>
@@ -174,15 +154,12 @@ The paper introduces a simple example to argue why we should care about the Eart
 
 
 After this example, the paper provides some theorems, using them we can conclude that 
-every distribution that converges under the KL, reverse-KL, TV, and JS divergences also converges under the Wasserstein divergence. It also proves that a small earth mover distance corresponds to a small difference in distributions.
-
-Combined, this shows the Wasserstein distance is a compelling loss function for generative models.
+**every distribution that converges under the KL, reverse-KL, TV, and JS divergences also converges under the Wasserstein divergence**. It also proves that a small earth mover distance corresponds to a small difference in distributions. Combined, this shows the Wasserstein distance is a compelling loss function for generative models.
 
 Unfortunately, computing the Wasserstein distance exactly is intractable. <br>
 <img src='./readme_images/eqn1.png' />​​ <br>
 
 The paper shows how we can compute an approximation of this.
-
 A result from Kantorovich-Rubinstein duality shows W is equivalent to:
 <img src='./readme_images/eqn2.png' />​​ <br>
 where the supremum is taken over all 1-Lipschitz functions.
@@ -192,7 +169,7 @@ where the supremum is taken over all 1-Lipschitz functions.
 **f is called k-Lipschitz if |f(x) - f(y)| <= k.|| x-y || for all x, y.** <br>
 
 
-The Wasserstein distance is the minimum cost of transporting mass in converting the data distribution q to the data distribution p. The Wasserstein distance for the real data distribution Pr and the generated data distribution Pg is mathematically defined as the greatest lower bound (infimum) for any transport plan (i.e. the cost for the cheapest plan): <br>
+The Wasserstein distance is **the minimum cost of transporting mass in converting the data distribution q to the data distribution p**. The Wasserstein distance for the real data distribution Pr and the generated data distribution Pg is mathematically defined as the greatest lower bound (infimum) for any transport plan (i.e. the cost for the cheapest plan): <br>
 <img src='./readme_images/eqn1.png' /> <br>
 Π(Pr, Pg) denotes the set of all joint distributions γ(x, y) whose marginals are respectively Pr and Pg.
 
@@ -208,9 +185,9 @@ Minimizing the GAN objective function with an optimal discriminator is equivalen
 
 ### GAN vs WGAN
 
-### GAN
+#### GAN
 <img src='./readme_images/gan.jpeg' /> <br>
-### WGAN
+#### WGAN
 <img src='./readme_images/wgan.jpeg' /> <br>
 
 The network design is almost the same except the critic does not have an output sigmoid function. The major difference is only on the cost function: <br>
@@ -223,15 +200,15 @@ However, there is one major thing missing. f has to be a 1-Lipschitz function. T
 Now we can put everything together in the pseudo-code below. <br>
 <img src='./readme_images/wgan-algorithm.png' /> <br>
 
-## Experiment
+## Experiments
 ### Correlation between loss metric and image quality
-n GAN, the loss measures how well it fools the discriminator rather than a measure of the image quality. As shown below, the generator loss in GAN does not drop even the image quality improves. Hence, we cannot tell the progress from its value. We need to save the testing images and evaluate it visually. On the contrary, WGAN loss function reflects the image quality which is more desirable. <br>
+In GAN, the loss measures how well it fools the discriminator rather than a measure of the image quality. As shown below, the generator loss in GAN does not drop even the image quality improves. Hence, we cannot tell the progress from its value. We need to save the testing images and evaluate them visually. On the contrary, WGAN loss function reflects the image quality which is more desirable. <br>
 <img src='./readme_images/res1.png' /> <br>
 
 ### Improve training stability
 Two significant contributions for WGAN are: <br>
 - it has no sign of mode collapse in experiments, and
-- the generator can still learn when the critic perform well. 
+- the generator can still learn when the critic performs well. 
 
 <img src='./readme_images/res2.jpeg' /> <br>
 
@@ -260,7 +237,7 @@ The differences in implementation for the WGAN are as follows:
 
 **2. Use (-1) labels for real images and 1 labels for fake images (instead of 1 and 0).**
 
-  - The DCGAN uses the class 0 for fake images and class 1 for real images, and these class labels are used to train the GAN.
+  - The DCGAN uses class 0 for fake images and class 1 for real images, and these class labels are used to train the GAN.
 
   - In the DCGAN, these are precise labels that the discriminator is expected to achieve. The WGAN does not have precise labels for the critic. Instead, it encourages the critic to output scores that are different for real and fake images.
 
@@ -270,7 +247,7 @@ The differences in implementation for the WGAN are as follows:
 
   - The DCGAN trains the discriminator as a binary classification model to predict the probability that a given image is real.
 
-  - To train this model, the discriminator is optimized using the binary cross entropy loss function. The same loss function is used to update the generator model.
+  - To train this model, the discriminator is optimized using the binary Cross-Entropy loss function. The same loss function is used to update the generator model.
 
   - The primary contribution of the WGAN model is the use of a new loss function that encourages the discriminator to predict a score of how real or fake a given input looks. This transforms the role of the discriminator from a classifier into a critic for scoring the realness or fakeness of images, where the difference between the scores is as large as possible.
 
@@ -280,7 +257,9 @@ The differences in implementation for the WGAN are as follows:
 
 
 **4. Constrain critic model weights to a limited range after each mini batch update.**
+
 **5. Update the critic model more times than the generator each iteration.**
+
 **6. Use the RMSProp version of gradient descent with a small learning rate and no momentum.**
 
 
